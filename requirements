@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo pacman -S ffmpeg curl jq awk 
+sudo pacman -S ffmpeg curl jq awk python
 
 sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 
