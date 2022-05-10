@@ -64,4 +64,3 @@ echo "Done, check"
 
 mv final.mp4 tiktok-$(date +"%Y-%m-%d-%H-%M").mp4
 
-mv tiktok*.mp4 tiktokcomps/
