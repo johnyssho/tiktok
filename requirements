@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo pacman -S ffmpeg curl jq awk 
+
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+
+sudo chmod a+rx /usr/local/bin/youtube-dl
+
+echo "Done, you can try..."
