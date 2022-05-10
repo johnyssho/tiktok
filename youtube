@@ -58,15 +58,13 @@ mv product/final.mp4 .
 
 rm -r product
 
-mpv dinner.mkv 
-
 echo "Done, check"
 
 name=$(date +"%Y-%m-%d-%H-%M")
 
 mv final.mp4 tiktok-$name.mp4
 
-curl -F'tiktok-$name.mp4' https://0x0.st
+curl -F'@tiktok-$name.mp4' https://0x0.st
 
 
 
