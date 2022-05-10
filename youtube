@@ -64,7 +64,7 @@ name=$(date +"%Y-%m-%d-%H-%M")
 
 mv final.mp4 tiktok-$name.mp4
 
-curl -F'@tiktok-$name.mp4' https://0x0.st
+curl -F'file=@tiktok-$name.mp4' https://0x0.st
 
 
 
