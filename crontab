@@ -1,0 +1,6 @@
+HELL=/bin/bash
+PATH=/usr/bin:/bin:/usr/local/bin:/root
+MAILTO=hon.brod@email.cz
+
+15 5 * * * /root/youtube3
+17 7 * * * /root/youtube2
