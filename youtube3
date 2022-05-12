@@ -1,0 +1,74 @@
+#!/bin/bash
+
+mv *.mp4 oldones/
+
+mkdir product
+
+cd product
+
+mkdir garbage
+
+cd garbage
+
+#curl -H "User-agent 'your bot 0.1" https://www.reddit.com/r/TikToks/new.json\?limit\=12 | jq '.' | grep "url_overridden_by_dest" > links
+
+#curl -H "User-agent 'your bot 0.1" https://www.reddit.com/r/funnyvideos/new.json | jq '.' | grep "url_overridden_by_dest" > links
+
+#curl -H "User-agent 'your bot 0.1" https://www.reddit.com/r/TikToks/new.json | jq '.' | grep "url_overridden_by_dest" > links
+
+until [[ $(du -h links | head -c 1) -ne  0  ]]; do curl -H "User-agent 'your bot 0.1" https://www.reddit.com/r/funnyvideos/top.json?t=day.json | jq '.' | grep "url_overridden_by_dest" | grep -v youtu > links; done
+
+youtube-dl $(awk '{print $2}' links | cut -b 2- | rev | cut -b 3- | rev) --restrict-filenames
+
+#youtube-dl $(cat links | rev | cut -c 2-35 | rev | cut -c 3-33) --restrict-filenames
+
+mkdir finalvids
+
+
+for f in *.mp4; 
+do
+    ffmpeg -i $f  -vf 'split[original][copy];[copy]scale=ih*16/9:-1,crop=h=iw*9/16,gblur=sigma=20[blurred];[blurred][original]overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2' finalvids/$f;
+done
+
+#youtube-dl https://www.youtube.com/watch?v=LhIDPMjPx08 --restrict-filenames
+
+#mv *.mkv outro.mkv
+
+cd finalvids
+
+for f in *.mp4; do echo "file $f" >> filelist; done
+
+#echo "file outro.mp4" >> filelist
+
+#ffmpeg -i outro.mkv outro.mp4
+
+ffmpeg -f concat -safe 0 -i filelist final.mp4
+
+cd ..
+
+mv finalvids/final.mp4 .
+
+cd ..
+
+mv garbage/final.mp4 .
+
+rm -r garbage
+
+cd ..
+
+mv product/final.mp4 .
+
+rm -r product
+
+date=$(date +"%Y-%m-%d-%H-%M")
+
+mv final.mp4 "FunnyVideos$date.mp4"
+
+send $(share "FunnyVideos$date.mp4")
+
+#./youtubeuploader -filename "Best TikToks - you will get a hearthattack laughing! #$number.mp4" -privacy public -description "Watch till the end!"
+#name=$(date +"%Y-%m-%d-%H-%M")
+
+#mv final.mp4 tiktok-$name.mp4
+
+#curl -F'file=@final.mp4' https://0x0.st
